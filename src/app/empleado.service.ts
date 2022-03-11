@@ -19,5 +19,19 @@ export class EmpleadoService {
   registrarEmpleado(empleado:Empleado):Observable<Object>{
     return this.httpClient.post(`${this.baseURL}`,empleado);
   }
+
+  actualizarEmpleado(id:number,empleado:Empleado):Observable<Object>{
+    return this.httpClient.put(`${this.baseURL}/${id}`,empleado);
+  }
+
+  getEmpleadoPorId(id:number):Observable<Object>{
+    return this.httpClient.get(`${this.baseURL}/${id}`);
+  }
+
+  eliminarEmpleado(id:number):Observable<Object>{
+    return this.httpClient.delete(`${this.baseURL}/${id}`);
+  }
+
+  
   
 }

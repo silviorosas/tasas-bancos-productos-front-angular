@@ -1,28 +1,48 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListaEmpleadosComponent } from './lista-empleados/lista-empleados.component';
+
 import { HttpClientModule} from '@angular/common/http';
-import { RegistrarEmpleadoComponent } from './registrar-empleado/registrar-empleado.component';
+
 import { FormsModule } from '@angular/forms';
-import { ActualizarEmpleadoComponent } from './actualizar-empleado/actualizar-empleado.component';
+import { ProductoComponent } from './producto/producto.component';
+import {TableModule} from 'primeng/table';
+import {PanelModule} from 'primeng/panel';
+import {MenubarModule} from 'primeng/menubar';
+import {DialogModule} from 'primeng/dialog';
+import {InputTextModule} from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListaEmpleadosComponent,
-    RegistrarEmpleadoComponent,
-    ActualizarEmpleadoComponent
+    ProductoComponent,
+   
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    TableModule,
+    PanelModule,
+    MenubarModule,
+    DialogModule,
+    InputTextModule,
+    ButtonModule,
+    ToastModule,
+    
+
   ],
-  providers: [],
+  providers: [ 
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

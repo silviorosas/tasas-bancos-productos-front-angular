@@ -8,10 +8,11 @@ import { Producto } from '../model/producto';
   providedIn: 'root'
 })
 export class ProductoService {
+  //creo variable para la peticion hacia el back java
   baseUrl:string = "http://localhost:8080/api/v1";
-
+//por medio de inyeccion de dependencia con http client llamo a mi back
   constructor(private http:HttpClient) { }
-
+//hacemos la peticion al back para obtener all
   getAll() : Observable<any>{
     return this.http.get(this.baseUrl + "/all");
   }
@@ -19,6 +20,10 @@ export class ProductoService {
 save(producto: Producto): Observable<any>{
   let headers = new HttpHeaders();
   headers = headers.set('Content-Type', 'application/json');
-  return this.http.post(this.baseUrl +"/save", JSON.stringify(producto), {headers: headers});
+  return this.http.post(this.baseUrl + "/save", JSON.stringify(producto), {headers: headers});
+}
+
+delete(id:number): Observable<any>{
+  return this.http.get(this.baseUrl + "/delete/"+id);
 }
 }

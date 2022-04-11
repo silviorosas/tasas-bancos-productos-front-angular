@@ -1,30 +1,37 @@
 <div  class="ui-g">
     <!--para mostrar mensaje de guardado -->
     <p-toast></p-toast>
+    <!--para mostrar mensaje de advertencia al eliminar producto-->
+    <p-confirmDialog header="Confirmación" icon="pi pi-exclamation-triangle"></p-confirmDialog>
       
     <p-panel  header="Gestión de Productos" [style]="{width: '100%', margin: ' 0 auto'}" >
     
-    <p-panel header="Administración de Personas" [style]="{width: '100%', margin: ' 0 auto'}"   >
+    <p-panel header="Administración de Productos" [style]="{width: '100%', margin: ' 0 auto'}"   >
     <!--menu-->
     <div  style="margin-bottom: 20px;"  >
+        <!--model trae el array items con los iconos desde producto.component.ts-->
         <p-menubar [model]="items"></p-menubar>
     </div>
-        <!--lista de personas en value
-        la prodiedad [columns]= variable "cols" que está en persona.component.ts -->
+        <!--array  de productos en value
+        la prodiedad [columns]= variable "cols" que está en persona.component.ts
+    (selectionMode="single" para seleccionar producto,[(selection)]="selectedProducto", dataKey="id" data unica
+    todo vinculado a   showSaveDialog(editar:boolean){} )-->
     <p-table [value]="productos" [columns]="cols"  responsiveLayout="stack" breakpoint="200px" [paginator]="true"
-     [rows]="5" [rowHover]="true"  [scrollable]="true" >
+     [rows]="5" [rowHover]="true"  [scrollable]="true" selectionMode="single" [(selection)]="selectedProducto"
+     dataKey="id" >
      <!--agregamos la variable let columns-->
         <ng-template pTemplate="header" let-columns>
-            <tr >
+            <tr  >
       <!--recorremos la lista cols con ngFor para hacer dinamica la tabla-->          
-                <th *ngFor="let col of columns" [ngStyle]="{backgroundColor:'var(--blue-300)'}">
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{backgroundColor:'var(--blue-300)'}">
                     <!--llena las columnas con header que viene de persona.component.ts-->
                     {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>    
                 </th>            
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-producto let-columns="columns">
-            <tr >
+            <tr [pSelectableRow]="producto" >
                <td *ngFor="let col of columns"> 
                {{producto[col.field]}}
             </td> 
@@ -34,6 +41,8 @@
     </p-panel>
     </p-panel>
     <!--menu dialog form-->
+    <!--[(visible)]="displaySaveDialog" la variable es traida desde producto.component
+    [modal]="true" es para que se vea mejor la modal-->
     <p-dialog header="Nuevo Producto" [(visible)]="displaySaveDialog"  [modal]="true" >
         <div class="ui-g ui-fluid" [ngStyle]="{backgroundColor:'var(--blue-200)'}" >
             <div class="ui-g-12">

@@ -1,0 +1,108 @@
+<p-card class="flex justify-content-center align-items-center border-round p-4"
+  [style]="{'width': '60rem', 'height': '100%'}">
+  <ng-template pTemplate="header">
+    <p class="pt-3 ml-4 text-5xl font-semibold">Tasas</p>
+    <p class="ml-4 mt-2 font-medium text-lg" style="color: grey;">
+      Ingrese las tasas con las cuales trabajará.
+    </p>
+  </ng-template>
+
+  <!--Formulario-->
+  <div>
+    <form class="flex card-container flex-row justify-content-between flex-wrap" autocomplete="off"
+      [formGroup]="formFilter" novalidate>
+      <div class="flex flex-column">
+        <span class="span-input">
+          <input
+            [class]="this.formFilter.hasError('required', 'tipoTasa') && formSubmitted ? 'ng-invalid ng-dirty': 'is-valid'"
+            [style]="{'width': '300px','height':'39px'}" type="text" pInputText formControlName="tasa" />
+          <label style=" font-weight: 500; font-size: .875rem;" for="input">Tipo de tasa</label>
+        </span>
+        <div class="text-pink-600 h-1rem">
+          <p *ngIf="formFilter.get('tipoTasa')?.errors?.['pattern']" class="text">Caracteres erroneos</p>
+        </div>
+      </div>
+      
+      <div class="flex flex-column   ">
+        <span class="span-input">
+          <!--optionLabel="nombre" y optionValue="nombre" definen el atributo de se muestra en el select-->
+          <p-dropdown           
+            [autoDisplayFirst]="false" [style]="{'width': '300px'}" [options]="this.bancos" optionValue="nombre"
+            formControlName="nombre" optionLabel="nombre" ></p-dropdown>
+          <label style="font-weight: 500; font-size: .875rem;" for="dropdown">Banco</label>
+        </span>
+      </div>
+    
+      <!--boton agregar-->
+     
+      <div  class="flex flex-column align-content-center btn-agregar pb-2 mt-4">
+        <button class="p-button-success border-none cursor-pointer text-center text-white pb-2" (click)="crearBancos()"
+          pButton [style]="{'height':'37px'}"> Agregar </button>
+      </div>
+    </form>
+  </div>
+
+
+  <!--Tabla-->
+  <div class="card pt-4">
+      <div >
+      
+    </div>
+    <!--[value]="bancos" trae el array con bancos a la tabla-->
+      <p-table  [value]="bancos" dataKey="id" editMode="row" [rowHover]="true" [rows]="4" [showCurrentPageReport]="true"
+        scrollHeight="flex" styleClass="p-datatable-sm" responsiveLayout="scroll" [scrollable]="true"
+        scrollHeight="45vh">
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="justify-content-center">Tipo de tasa</th>
+            <th class="justify-content-center">Banco</th>
+            <th class="justify-content-center">Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-datos let-editing="editing" let-ri="rowIndex">
+          <tr [pEditableRow]="datos">
+            <td class="justify-content-center">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input  required pattern="[A-Z a-z 0-9 - . /]+"
+                    [style]="{'width':'250px', 'height':'38px'}" pInputText type="text" [(ngModel)]="datos.tasa">
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{datos.tasa}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td class="justify-content-center">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <p-dropdown appendTo="body" [style]="{'width':'200px', 'height':'38px'}" [style]="{'width':'100%'}" [editable]="true"
+                    [options]="this.bancos" optionLabel="nombre" optionValue="nombre" [(ngModel)]="datos.nombre"
+                    [style]="{'width':'100%'}">
+                  </p-dropdown>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{datos.nombre}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td class="justify-content-center">
+              <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                (click)="resguardoInfo(datos)" pTooltip="Editar la fila" tooltipPosition="top"
+                tooltipStyleClass="text-center"
+                class="mr-2 p-button-primary p-2 border-none border-round cursor-pointer text-white"></button>
+              <button [disabled]="disable" *ngIf="editing" pButton pRipple type="button" pSaveEditableRow
+                icon="pi pi-check" (click)="guardarCambios(datos)" pTooltip="Guardar" tooltipPosition="top"
+                tooltipStyleClass="text-center" class="p-button-rounded p-button-text p-button-success"></button>
+              <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                (click)="cancelarEdicion(datos, ri)" pTooltip="No guardar" tooltipPosition="top"
+                tooltipStyleClass="text-center" class="p-button-rounded p-button-text p-button-danger mr-2"></button>
+              <button pButton pRipple type="button" icon="pi pi-trash"
+                class="p-button-danger p-2 border-none border-round cursor-pointer text-white" (click)="eliminar(datos.id)"
+                pTooltip="Eliminar banco" tooltipPosition="top" tooltipStyleClass="text-center"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+</p-card>
+

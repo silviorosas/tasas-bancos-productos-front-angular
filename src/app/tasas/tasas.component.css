@@ -1,0 +1,26 @@
+
+::ng-deep * {
+    margin: 0;
+    padding: 0;
+  }
+
+.btn-borrar{
+    background-color: rgb(177, 12, 12);
+}
+
+
+.is-valid{
+  border-color: var(--surface-400);	
+}
+.span-input{
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.activo{
+  padding-top: 50px;
+  height: 45vh;
+}
+.spinner{
+  margin-left: 45%;
+}

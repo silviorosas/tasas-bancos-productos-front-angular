@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule} from '@angular/common/http';
 
-import { FormsModule } from '@angular/forms';
+
 import { ProductoComponent } from './producto/producto.component';
 import {TableModule} from 'primeng/table';
 import {PanelModule} from 'primeng/panel';
@@ -18,6 +18,12 @@ import {ToastModule} from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
+import { DropdownModule } from 'primeng/dropdown';
+import { CardModule } from 'primeng/card';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BancoComponent } from './banco/banco.component';
+import { TasasComponent } from './tasas/tasas.component';
+import { ProductoDosComponent } from './producto-dos/producto-dos.component';
 
 
 
@@ -25,6 +31,9 @@ import {ConfirmationService} from 'primeng/api';
   declarations: [
     AppComponent,
     ProductoComponent,
+    BancoComponent,
+    TasasComponent,
+    ProductoDosComponent,
    
   ],
   imports: [
@@ -40,7 +49,10 @@ import {ConfirmationService} from 'primeng/api';
     InputTextModule,
     ButtonModule,
     ToastModule,
-    ConfirmDialogModule   
+    ConfirmDialogModule,
+    DropdownModule,
+    CardModule,
+    ReactiveFormsModule  
 
   ],
   providers: [ 

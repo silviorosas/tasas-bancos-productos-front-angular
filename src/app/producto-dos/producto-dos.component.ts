@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { Producto } from '../model/producto'; 
+import { Producto } from '../model/producto';
 import { ProductoService } from '../service/producto.service';
 
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.css']
+  selector: 'app-producto-dos',
+  templateUrl: './producto-dos.component.html',
+  styleUrls: ['./producto-dos.component.css']
 })
-export class ProductoComponent implements OnInit {
-
+export class ProductoDosComponent implements OnInit {
 
   //creo array global producto
   productos!: Producto[];
@@ -94,7 +92,7 @@ cuando haga click la ventana dialog o modal se muestre*/
         this.messageService.add({ severity: 'success', summary: "Resultado", detail: "Se guardó el producto correctamente." });
         //cierro la modal
         this.displaySaveDialog = false;
-
+        this.traerProductos()
       },
       error => {
         console.log(error);
@@ -115,6 +113,7 @@ cuando haga click la ventana dialog o modal se muestre*/
         (result:any)=>{
           this.messageService.add({severity:"success",summary:"Resultado",detail:"Se eliminó producto correctamente"})
           this.deleteObjeto(result.id);
+          this.traerProductos()
         }  
         )
       }

@@ -1,71 +1,4 @@
-<div  class="ui-g">
-    <!--para mostrar mensaje de guardado -->
-    <p-toast></p-toast>
-    <!--para mostrar mensaje de advertencia al eliminar producto-->
-    <p-confirmDialog header="Confirmación" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-      
-    <p-panel  header="Gestión de Productos" [style]="{width: '100%', margin: ' 0 auto'}">
-    
-    <p-panel header="Administración de Productos" [style]="{width: '100%', margin: ' 0 auto'}">
-    <!--formulario para buscar productos-->
-<div class="mt-2  mb-4">
-    <form class="flex card-container flex-row flex-wrap" autocomplete="off" [formGroup]="formFilter" novalidate>
-
-        <!--buscar bancos-->
-        <div class="flex card-container flex-row flex-wrap">
-
-            <!--input banco-->
-            <div class="flex flex-column  ">
-                <span class="span-input">
-                    <input [style]="{'width': '300px','height':'38px'}" type="text" pInputText
-                     formControlName="nombre" />
-                </span>
-            </div>
-
-            <!--boton buscar producto -->
-            <div class="flex flex-column  ml-4">
-                <button
-                    class="p-button-secondary border-none cursor-pointer text-center text-white flex align-items-center justify-content-center pb-2"
-                    pButton  (click)="getProdFilter()" [style]="{'height':'37px'}">Buscar</button>
-            </div>
-
-        </div>
-    </form>
-</div> 
-    <!--menu-->
-    <div  style="margin-bottom: 20px;"  >
-        <!--model trae el array items con los iconos desde producto.component.ts-->
-        <p-menubar [model]="items"></p-menubar>
-    </div>
-    <!--array  de productos en value la prodiedad [columns]= variable "cols" que está en persona.component.ts
-    (selectionMode="single" para seleccionar producto,[(selection)]="selectedProducto", dataKey="id" data unica
-    todo vinculado a   showSaveDialog(editar:boolean){} )-->
-    <p-table [value]="productos" [columns]="cols"  responsiveLayout="stack" breakpoint="200px" [paginator]="true"
-     [rows]="5" [rowHover]="true"  [scrollable]="true" selectionMode="single" [(selection)]="selectedProducto"
-     dataKey="id" >
-     <!--agregamos la variable let columns-->
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-      <!--recorremos la lista cols con ngFor para hacer dinamica la tabla-->          
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{backgroundColor:'var(--blue-300)'}">
-                    <!--llena las columnas con header que viene de persona.component.ts-->
-                    {{col.header}}
-                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>    
-                </th>            
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-producto let-columns="columns">
-            <tr [pSelectableRow]="producto" >
-               <td *ngFor="let col of columns"> 
-               {{producto[col.field]}}
-            </td> 
-            </tr>
-        </ng-template>
-    </p-table>
-    </p-panel>
-
-    </p-panel>
-   
+ 
     <!--menu dialog form-->
     <!--[(visible)]="displaySaveDialog" es para darle valor true o false
     [modal]="true" es para que se vea mejor la modal-->
@@ -138,7 +71,7 @@
              <div class="flex flex-column  ml-4">
                 <button
                     class="p-button-secondary border-none cursor-pointer text-center text-white flex align-items-center justify-content-center pb-2"
-                    pButton  (click)="getProdFilter()" [style]="{'height':'37px'}" (click)="clearFilters()">Limpiar</button>
+                    pButton   [style]="{'height':'37px'}" (click)="clearFilters()">Limpiar</button>
             </div>
 
         </div>
@@ -226,6 +159,5 @@
         </form>
     </p-dialog>
     
-
 
 
